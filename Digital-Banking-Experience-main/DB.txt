@@ -1,0 +1,114 @@
+create database bank;
+
+use bank;
+
+CREATE TABLE userlogin (
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE atm_blocks (
+    block_id INT AUTO_INCREMENT PRIMARY KEY,
+    account_no INT NOT NULL,
+    country VARCHAR(255) NOT NULL,
+    registered_no INT NOT NULL
+);
+
+CREATE TABLE loande (
+    loan_id INT AUTO_INCREMENT PRIMARY KEY,
+    desired_loan_amount DECIMAL(10, 2) NOT NULL,
+    annual_income DECIMAL(10, 2) NOT NULL,
+    purpose VARCHAR(255) NOT NULL,
+    account_no INT NOT NULL,
+    mobile_no VARCHAR(15) NOT NULL
+);
+
+CREATE TABLE acn (
+    account_number INT PRIMARY KEY,
+    account_holder_name VARCHAR(255) NOT NULL,
+    balance DECIMAL(10, 2) NOT NULL
+);
+
+CREATE TABLE transaction (
+    transaction_id INT AUTO_INCREMENT PRIMARY KEY,
+    sender_account_number INT,
+    receiver_account_number INT,
+    amount DECIMAL(10, 2) NOT NULL,
+    date_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (sender_account_number) REFERENCES acn(account_number),
+    FOREIGN KEY (receiver_account_number) REFERENCES acn(account_number)
+);
+
+CREATE TABLE user (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    customer_id BIGINT NOT NULL,
+    First_Name VARCHAR(255) NOT NULL,
+    Last_Name VARCHAR(255) NOT NULL,
+    Ph_No VARCHAR(15) NOT NULL,
+    Email VARCHAR(255) NOT NULL,
+    Gender VARCHAR(10) NOT NULL,
+    DOB VARCHAR(25),
+    Account_type VARCHAR(20) NOT NULL,
+    Aadhar_num VARCHAR(20) NOT NULL,
+    Pan_num VARCHAR(20) NOT NULL,
+    Door_no VARCHAR(255) NOT NULL,
+    Street VARCHAR(255) NOT NULL,
+    Area VARCHAR(255) NOT NULL,
+    District VARCHAR(255) NOT NULL,
+    Pincode VARCHAR(10) NOT NULL
+);
+
+
+CREATE TABLE branch_lock (
+    branch_code INT AUTO_INCREMENT PRIMARY KEY,
+    branch_name VARCHAR(255) NOT NULL,
+    branch_address VARCHAR(255) NOT NULL,
+    state VARCHAR(255) NOT NULL,
+    district VARCHAR(255) NOT NULL,
+    pincode VARCHAR(10) NOT NULL
+);
+
+
+INSERT INTO branch_lock (branch_name, branch_address, state, district, pincode)
+VALUES ('Chennai Main Branch', '45, Mount Road, Chennai', 'Tamil Nadu', 'Chennai', '600001');
+
+INSERT INTO userlogin (username, password)
+VALUES ('vishwa', 'vishwa69');
+
+INSERT INTO user (
+    username,
+    customer_id,
+    First_Name,
+    Last_Name,
+    Ph_No,
+    Email,
+    Gender,
+    DOB,
+    Account_type,
+    Aadhar_num,
+    Pan_num,
+    Door_no,
+    Street,
+    Area,
+    District,
+    Pincode
+) VALUES (
+    'vishwa',
+    1,  
+    'Vishwa',
+    'Kumar',
+    '9876543210',
+    'vishwa@example.com',
+    'Male',  
+    '1990-05-15',  
+    'Savings',
+    '123456789012',
+    'ABCDE1234F',
+    '123, XYZ Street',
+    'Gandhipuram',
+    'Coimbatore',
+    'Coimbatore',
+    '641001'
+);
